@@ -29,13 +29,6 @@ public class LoginPage {
         this.password.sendKeys(password);
 
         this.login.click();
-
-
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
 }
