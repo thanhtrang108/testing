@@ -23,21 +23,10 @@ public class YourInformation {
         PageFactory.initElements(driver, this);
     }
 
-    public void continues() {
+    public void yourInformation (String firstName, String lastName, String zipCode){
+        this.firstName.sendKeys(firstName);
+        this.lastName.sendKeys(lastName);
+        this.zipCode.sendKeys(zipCode);
         continues.click();
     }
-
-    public void setFirstName(String firstName) {
-        this.firstName.sendKeys(firstName);
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName.sendKeys(lastName);
-    }
-
-    public void setZipCode(String zipCode) {
-        this.zipCode.sendKeys(zipCode);
-    }
-
-
 }

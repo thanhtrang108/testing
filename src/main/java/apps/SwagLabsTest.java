@@ -31,9 +31,7 @@ public class SwagLabsTest {
 
     @Test(priority = 1, dataProvider = "loginData")
     public void testLogin(String username, String password) throws Exception {
-        login.setUserName(username);
-        login.setPassword(password);
-        login.login();
+        login.login(username, password);
     }
 
     @DataProvider(name = "loginData")
@@ -43,21 +41,17 @@ public class SwagLabsTest {
         return testData;
     }
 
-    @Test(priority = 2)
+   @Test(priority = 2)
     public void testPickItem() throws Exception {
         productPage.addItem(0);
         productPage.addItem(1);
         productPage.goToBag();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(text(),'Your Cart')]")));
         yourCart.checkOut();
     }
 
     @Test(priority = 3, dataProvider = "checkoutData")
     public void testCheckout(String firstName, String lastName, String zipCode) throws Exception {
-        yourInformation.setFirstName(firstName);
-        yourInformation.setLastName(lastName);
-        yourInformation.setZipCode(zipCode);
-        yourInformation.continues();
+        yourInformation.yourInformation(firstName, lastName, zipCode);
     }
 
     @DataProvider(name = "checkoutData")
@@ -83,7 +77,7 @@ public class SwagLabsTest {
     @Test(priority = 5)
     public void checkoutSuccess() throws Exception{
         overview.finish();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h2[contains(text(),'THANK YOU FOR YOUR ORDER')]")));
+//        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h2[contains(text(),'THANK YOU FOR YOUR ORDER')]")));
     }
 
     @BeforeClass
@@ -96,7 +90,7 @@ public class SwagLabsTest {
         productPage = new ProductPage(driver);
         yourCart = new YourCart(driver);
         yourInformation = new YourInformation(driver);
-        overview = new Overview(driver);
+        overview = new Overview(driver, wait);
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.get(baseUrL);
