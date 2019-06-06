@@ -5,3 +5,4 @@
 System.setProperty("webdriver.chrome.driver", "/Users/lubaby/Documents/Selenium/chromedriver");
 
 - Run all test case by class apps
+
