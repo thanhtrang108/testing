@@ -1,9 +1,12 @@
 package page;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class LoginPage {
@@ -15,13 +18,22 @@ public class LoginPage {
     private WebElement password;
     @FindBy(className = "btn_action")
     private WebElement login;
+    @FindBy(xpath ="//button[contains(text(),'Open Menu')]")
+    private WebElement menu;
+    @FindBy(xpath ="//a[contains(text(),'Logout')]")
+//    @FindBy(id ="logout_sidebar_link")
+    private WebElement logout;
+    private WebDriverWait wait;
+    @FindBy(xpath ="//div[@class='bm-menu']")
+    private WebElement menuList;
 
-    public LoginPage(WebDriver driver) {
+    public LoginPage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
+        this.wait = wait;
         PageFactory.initElements(driver, this);
     }
 
-    public void login(String username, String password) {
+    private void login(String username, String password) {
         this.username.clear();
         this.username.sendKeys(username);
 
@@ -30,5 +42,21 @@ public class LoginPage {
 
         this.login.click();
     }
+
+    public void loginPass (String username, String password){
+        login(username, password);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='product_label']")));
+    }
+
+    public void loginFail (String username, String password){
+        login(username, password);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@class='error-button']")));
+    }
+
+/*    public void logout() {
+        this.menu.click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(text(),'Logout')]")));
+        this.logout.click();
+    }*/
 
 }

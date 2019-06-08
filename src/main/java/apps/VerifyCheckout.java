@@ -18,7 +18,7 @@ import utilities.ReadFile;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class SwagLabsTest {
+public class VerifyCheckout {
 
     private WebDriver driver;
     private String baseUrL;
@@ -31,13 +31,13 @@ public class SwagLabsTest {
 
     @Test(priority = 1, dataProvider = "loginData")
     public void testLogin(String username, String password) throws Exception {
-        login.login(username, password);
+        login.loginPass(username, password);
     }
 
     @DataProvider(name = "loginData")
     public Object[][] loginDataProvider() throws Exception {
         ReadFile.setExcelFile(Constants.PATH_TO_EXCEL, "Account");
-        Object[][] testData = ReadFile.getTestData("data");
+        Object[][] testData = ReadFile.getTestData("checkout");
         return testData;
     }
 
@@ -77,7 +77,6 @@ public class SwagLabsTest {
     @Test(priority = 5)
     public void checkoutSuccess() throws Exception{
         overview.finish();
-//        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h2[contains(text(),'THANK YOU FOR YOUR ORDER')]")));
     }
 
     @BeforeClass
@@ -86,7 +85,7 @@ public class SwagLabsTest {
         System.setProperty("webdriver.chrome.driver", Constants.WEB_DRIVER_PATH);
         driver = new ChromeDriver();
         wait = new WebDriverWait(driver, 10);
-        login = new LoginPage(driver);
+        login = new LoginPage(driver, wait);
         productPage = new ProductPage(driver);
         yourCart = new YourCart(driver);
         yourInformation = new YourInformation(driver);
