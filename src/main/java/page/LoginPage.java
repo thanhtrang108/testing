@@ -21,11 +21,10 @@ public class LoginPage {
     @FindBy(xpath ="//button[contains(text(),'Open Menu')]")
     private WebElement menu;
     @FindBy(xpath ="//a[contains(text(),'Logout')]")
-//    @FindBy(id ="logout_sidebar_link")
     private WebElement logout;
     private WebDriverWait wait;
     @FindBy(xpath ="//div[@class='bm-menu']")
-    private WebElement menuList;
+    private WebElement menuBar;
 
     public LoginPage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
@@ -53,10 +52,12 @@ public class LoginPage {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@class='error-button']")));
     }
 
-/*    public void logout() {
+   public void logout() {
         this.menu.click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(text(),'Logout')]")));
+        Actions builder = new Actions(driver);
+        builder.moveToElement(menuBar).perform();
         this.logout.click();
-    }*/
+    }
 
 }

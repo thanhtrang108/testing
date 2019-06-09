@@ -23,7 +23,7 @@ public class VerifyLogin {
     @Test(priority = 1, dataProvider = "loginPassData")
         public void testLoginPass(String username, String password) throws Exception {
         login.loginPass(username, password);
-        driver.get(baseUrL);
+        login.logout();
     }
 
     @DataProvider(name = "loginPassData")
